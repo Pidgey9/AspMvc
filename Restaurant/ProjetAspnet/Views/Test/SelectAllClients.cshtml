@@ -1,0 +1,27 @@
+﻿@model List<ProjetAspnet.Models.Client>
+@{
+    ViewBag.Title = "SelectAllClients";
+}
+
+<h2>SelectAllClients</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>id</th>
+        <th>pwd</th>
+        <th>nom</th>
+        <th>prenom</th>
+        <th>adresse</th>
+    </tr>
+    @{
+        foreach (var x in @Model)
+        {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.Password</td>
+                <td>@x.Nom</td>
+                <td>@x.Prenom</td>
+                <td>@x.Adresse</td>
+            </tr>
+        }
+    }
+</table>

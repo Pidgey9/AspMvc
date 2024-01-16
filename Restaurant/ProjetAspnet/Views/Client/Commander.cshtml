@@ -1,0 +1,285 @@
+﻿<link href=@Url.Content("../../CSS/style.css") rel="stylesheet">
+@model List<ProjetAspnet.Models.Article>
+@{
+    ViewBag.Title = "Commander";
+}
+
+<html>
+
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha512-4flP4fepHVTXY6PvAu6a5kmfJrdPJSN/4g6VD4LShI63TSMjxGxv3zfb4lSoUH4iSnOK5Fp0e5EdRlv1rfC7gg=="
+          crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/solid.css"
+          integrity="sha384-osqezT+30O6N/vsMqwW8Ch6wKlMofqueuia2H7fePy42uC05rm1G+BUPSd2iBSJL" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/fontawesome.css"
+          integrity="sha384-BzCy2fixOYd0HObpx3GMefNqdbA7Qjcc91RgYeDjrHTIEXqiF00jKvgQG0+zY/7I" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../CSS/stylecommandede.css" />
+
+</head>
+
+
+<body>
+    <form method="post" action="/Client/Recap">
+        <section class="pt-5 pb-5">
+            <div class="container">
+                <div class="row w-100">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <h3 class="display-5 mb-2 text-center">la commande de....</h3>
+                        <p class="mb-5 text-center">
+                            <i class="text-info font-weight-bolder">3</i> Articles dans votre panier
+                        </p>
+                        <label>Votre article : </label>
+                        <select id="select">
+                            @{
+                                foreach (var a in Model)
+                                {
+                                    <option value="@a.Nom">@a.Nom</option>
+                                }
+                            }
+                        </select>
+                        <label>Votre quantité : </label>
+                        <input type="number" id="quantite" />
+                        <br />
+                        <button type="button" onclick="show()">Ajouter</button>
+                        <button type="button" onclick="reset()">Reset</button>
+                        <br />
+                        @*<table id="shoppingCart" class="table table-condensed table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="width:60%">Articles</th>
+                                    <th style="width:12%">Prix</th>
+                                    <th style="width:10%">Quantite</th>
+                                    <th style="width:10%">Prix ligne </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-th="Article">
+
+                                        <div>Article Name</div>
+
+                                    </td>
+                                    <td data-th="Prix">$49.00</td>
+                                    <td data-th="Quantite"></td>
+                                    <td class="actions" data-th="prixtotal"></td>
+                                </tr>
+                                <tr>
+                                    <td data-th="Article">
+
+                                        <div>Article Name</div>
+
+
+                                    </td>
+                                    <td data-th="Prix">$49.00</td>
+                                    <td data-th="Quantite"></td>
+                                    <td class="actions" data-th="prixtotal"></td>
+                                </tr>
+                                <tr>
+                                    <td data-th="Article">
+
+                                        <div>Article Name</div>
+
+
+                                    </td>
+                                    <td data-th="Prix">$49.00</td>
+                                    <td data-th="Quantite"></td>
+                                    <td class="actions" data-th="prixtotal"></td>
+                                </tr>
+                            </tbody>
+                        </table>*@
+                        <div id="detail"></div>
+                        <div class="float-right text-right">
+                            <h4>Total:</h4>
+
+                            <h1>
+                                <input id="total" type="number" name="prixTotal" readonly /> euros
+                            </h1>
+   
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 d-flex align-items-center">
+                <div class="col-sm-6 order-md-2 text-right">
+                    <button type="submit" class="btn btn-success mb-4 btn-lg pl-5 pr-5">
+                        Valider la commande<i class='fas fa-check fa-sm' style='color:#070707;    margin-left: 3px;'></i>
+                    </button>
+
+                </div>
+
+
+
+                <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                    <a href="catalog.html">
+                        <i class="fas fa-arrow-left mr-2"></i> Retour au panier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    </form>
+
+</body>
+
+</html>
+
+   
+
+<script type="text/javascript">
+    const liste = [];
+    function show() {
+        function Article(nom, quantite) {
+            this.nom = nom
+            this.quantite = quantite
+            this.prix
+            this.tprix
+            this.getString = function () {
+                let str = "<tr><td>" + this.quantite + "</td><td>" + this.nom + "</td>"
+                str += "<td>" + this.prix + "</td><td>" + this.tprix + "</td></tr>"
+                return str;
+            }
+        }
+        //get id
+        let nom = document.getElementById("select").value;
+        let quantite = document.getElementById("quantite").value;
+
+        //error
+        if (Number(quantite) < 0) { return alert("ERREUR : < 0") }
+
+        //push article or add quantity
+        let verif = true;
+        for (var i in liste) {
+            if (nom == liste[i].nom) {
+                liste[i].quantite = Number(liste[i].quantite) + Number(quantite);
+                liste[i].tprix = Number(liste[i].quantite) * Number(liste[i].prix)
+                verif = false;
+                break;
+            }
+            else {
+                verif = true;
+            }
+        }
+        if (verif == true) {
+            const art = new Article(nom, quantite)
+            if (art.nom == "Salade a la caprese") {
+                art.prix = 10;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Aubergine parmigiana") {
+                art.prix = 12;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Salade Grecque") {
+                art.prix = 8;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Salade japonaise") {
+                art.prix = 8.5;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Salade de lentilles au saumon fumé") {
+                art.prix = 12;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Salade Cesar") {
+                art.prix = 9;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Les lasagnes") {
+                art.prix = 20;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Pizza Royal") {
+                art.prix = 15;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Feuilleté au saumon") {
+                art.prix = 18;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Quiche au Fromage") {
+                art.prix = 6;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Tiramisu") {
+                art.prix = 7;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Brownies") {
+                art.prix = 5;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Cheesecake classique") {
+                art.prix = 7.5;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Crème anglaise") {
+                art.prix = 6.5;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "coca cola") {
+                art.prix = 4;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "sprite") {
+                art.prix = 3;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "Eau minérale") {
+                art.prix = 2.5;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            if (art.nom == "The froid") {
+                art.prix = 4.5;
+                art.tprix = Number(art.quantite) * Number(art.prix);
+            }
+            liste.push(art);
+            verif = false;
+        }
+
+
+        //detail
+        let x = document.getElementById("detail");
+        let str1 = "<table class='table table-bordered table-condensed table-responsive'><tr><th>Nbres</th><th>Articles</th>";
+        str1 += "<th>Prix unitaire</th><th>Prix ligne</th></tr>";
+        for (var i in liste) {
+            str1 += liste[i].getString();
+        }
+        x.innerHTML = str1;
+
+        //total
+        let y = document.getElementById("total");
+        if (true) {
+            let total = 0;
+            for (var i in liste) {
+                total += liste[i].tprix;
+            }
+            y.value = total;
+        }
+    }
+    function reset() {
+        liste.length = 0;
+        let x = document.getElementById("detail");
+        let y = document.getElementById("total");
+        x.innerHTML = "";
+        y.value = 0;
+    }
+
+</script>
+    

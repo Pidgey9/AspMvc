@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <input type="checkbox" name="" id="">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <li>@Html.ActionLink("Notre Carte", "NotreCarte", "Client")</li>
+                <li>@Html.ActionLink("Login", "Login", "Client")</li>
+                <li>@Html.ActionLink("Inscription", "Inscription", "Client")</li>
+                @{
+                    if (Session["client"] != null)
+                    {
+                        <li>@Html.ActionLink("Commander", "Commander", "Client")</li>
+                    }
+                }
+            </ul>
+            <h1 class="logo menu-items">@Html.ActionLink("Page Accueil", "Accueil", "Client")</h1>
+        </div>
+    </nav>
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>@Session.SessionID</p>
+        </footer>
+    </div>
+
+</body>
+</html>

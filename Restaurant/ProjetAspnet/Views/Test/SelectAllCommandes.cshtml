@@ -1,0 +1,27 @@
+﻿@model List<ProjetAspnet.Models.Commande>
+@{
+    ViewBag.Title = "SelectAllCommandes";
+}
+
+<h2>SelectAllCommandes</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>id</th>
+        <th>idClient</th>
+        <th>date</th>
+        <th>prixTotal</th>
+        <th>infos</th>
+    </tr>
+    @{
+        foreach (var x in @Model)
+        {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.IdClient</td>
+                <td>@x.Date.ToString("dd-MM-yyyy")</td>
+                <td>@x.PrixTotal</td>
+                <td>@x.Infos</td>
+            </tr>
+        }
+    }
+</table>

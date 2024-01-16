@@ -1,0 +1,18 @@
+﻿<link href=@Url.Content("../../CSS/style.css") rel="stylesheet">
+
+@model double
+@{
+    ViewBag.Title = "Recap";
+}
+<div style="padding:50px"></div>
+<form method="post" action="/Client/Merci">
+    <label>id client : </label><input type="text" name="idClient" readonly id="client"/><br />
+    <label>date : </label><input type="date" name="date" readonly value="@DateTime.Now.ToString("yyyy-MM-dd")" /><br />
+    <label>prix total : </label><input type="number" name="prixTotal" readonly value="@Model" /><br />
+    <label>infos : </label><input type="text" name="infos"/><br />
+    <button type="submit">Achat</button>
+</form>
+<script type="text/javascript">
+    var x = document.getElementById("client");
+    x.value = @Session["client"];
+</script>

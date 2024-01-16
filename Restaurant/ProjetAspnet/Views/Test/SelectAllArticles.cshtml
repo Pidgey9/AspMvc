@@ -1,0 +1,25 @@
+﻿@model List<ProjetAspnet.Models.Article>
+@{
+    ViewBag.Title = "SelectAllArticles";
+}
+
+<h2>SelectAllArticles</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>idArticle</th>
+        <th>article</th>
+        <th>description</th>
+        <th>prix</th>
+    </tr>
+    @{
+        foreach (var x in @Model)
+        {
+            <tr>
+                <td>@x.IdArticle</td>
+                <td>@x.Nom</td>
+                <td>@x.Description</td>
+                <td>@x.Prix</td>
+            </tr>
+        }
+    }
+</table>
